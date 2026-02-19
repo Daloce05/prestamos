@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prestamos - Panel</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-orbs"></div>
+    <section class="login-screen" id="login-screen">
+      <div class="login-card">
+        <div class="logo">
+          <span class="logo-mark">$</span>
+          <div>
+            <h1>Prestamos</h1>
+            <p>Acceso de administrador</p>
+          </div>
+        </div>
+        <form class="login-form" id="login-form">
+          <label class="login-label" for="login-user">Usuario</label>
+          <input class="login-input" id="login-user" name="user" type="text" required />
+          <label class="login-label" for="login-pass">Contraseña</label>
+          <input class="login-input" id="login-pass" name="pass" type="password" required />
+          <p class="login-error" id="login-error"></p>
+          <button class="btn primary" type="submit">Ingresar</button>
+        </form>
+      </div>
+    </section>
+
+    <div id="app-root" class="app-hidden">
+      <header class="topbar">
+        <div class="logo">
+          <span class="logo-mark">$</span>
+          <div>
+            <h1>Prestamos</h1>
+            <p>Control inteligente de capital</p>
+          </div>
+        </div>
+        <div class="top-actions">
+          <button class="btn ghost" id="btn-refresh">Actualizar</button>
+          <button class="btn primary" id="btn-open-setup">Configurar capital</button>
+          <button class="btn ghost danger" id="btn-logout" type="button">Cerrar sesion</button>
+        </div>
+      </header>
+
+      <main class="app-shell">
+        <aside class="sidebar">
+          <button class="nav-item active" data-target="page-dashboard">Dashboard</button>
+          <button class="nav-item" data-target="page-clientes">Clientes</button>
+          <button class="nav-item" data-target="page-prestamos">Prestamos</button>
+          <button class="nav-item" data-target="page-pagos">Pagos</button>
+          <button class="nav-item" data-target="page-deudores">Deudores</button>
+          <button class="nav-item" data-target="page-busqueda">Busqueda</button>
+        </aside>
+
+        <div class="content">
+          <section class="page active" id="page-dashboard">
+            <section class="dashboard" id="dashboard">
+              <div class="card glow">
+                <h3>Capital disponible</h3>
+                <p class="big" id="capital-available">$0</p>
+                <p class="muted" id="capital-updated">Última actualización: --</p>
+              </div>
+              <div class="card">
+                <h3>Total prestado</h3>
+                <p class="big" id="total-loaned">$0</p>
+                <p class="muted">Resumen general</p>
+              </div>
+              <div class="card">
+                <h3>Total pendiente</h3>
+                <p class="big" id="total-pending">$0</p>
+                <p class="muted">Saldo por cobrar</p>
+              </div>
+              <div class="card">
+                <h3>Total recuperado</h3>
+                <p class="big" id="total-recovered">$0</p>
+                <p class="muted">Pagos registrados</p>
+              </div>
+              <div class="card">
+                <h3>Clientes activos</h3>
+                <p class="big" id="active-clients">0</p>
+                <p class="muted">Con préstamos activos</p>
+              </div>
+              <div class="card">
+                <h3>Préstamos en mora</h3>
+                <p class="big" id="loans-mora">0</p>
+                <p class="muted">Alertas críticas</p>
+              </div>
+            </section>
+          </section>
+
+          <section class="page" id="page-clientes">
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Clientes</h2>
+                <button class="btn primary" id="btn-open-client">Nuevo cliente</button>
+              </div>
+              <div class="panel-body" id="clients-list"></div>
+            </div>
+          </section>
+
+          <section class="page" id="page-prestamos">
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Préstamos</h2>
+                <button class="btn primary" id="btn-open-loan">Nuevo préstamo</button>
+              </div>
+              <div class="panel-body" id="loans-list"></div>
+            </div>
+          </section>
+
+          <section class="page" id="page-pagos">
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Pagos</h2>
+                <button class="btn primary" id="btn-open-payment">Registrar pago</button>
+              </div>
+              <div class="panel-body" id="payments-list"></div>
+            </div>
+          </section>
+
+          <section class="page" id="page-deudores">
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Historial / Deudores</h2>
+                <div class="chip-group" id="debtors-filters">
+                  <button class="chip active" data-filter="all">Todos</button>
+                  <button class="chip" data-filter="active">Activos</button>
+                  <button class="chip" data-filter="finished">Finalizados</button>
+                  <button class="chip" data-filter="morose">En mora</button>
+                  <button class="chip" data-filter="interest">Total con interés 5%</button>
+                </div>
+              </div>
+              <div class="panel-body" id="debtors-list"></div>
+            </div>
+          </section>
+
+          <section class="page" id="page-busqueda">
+            <div class="panel">
+              <div class="panel-header">
+                <h2>Busqueda de cliente</h2>
+              </div>
+              <div class="panel-body">
+                <div class="search-bar">
+                  <input
+                    type="text"
+                    id="client-search-input"
+                    placeholder="Escribe el nombre del cliente"
+                  />
+                  <button class="btn ghost small" id="client-search-clear">Limpiar</button>
+                </div>
+                <div class="detail-list" id="client-search-results"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <div class="modal" id="modal">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 id="modal-title">Formulario</h3>
+            <button class="btn icon" id="btn-close-modal">✕</button>
+          </div>
+          <form class="modal-body" id="modal-form"></form>
+          <div class="modal-footer">
+            <button class="btn ghost" id="btn-cancel">Cancelar</button>
+            <button class="btn primary" id="btn-submit">Guardar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast" id="toast"></div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
