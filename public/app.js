@@ -69,8 +69,9 @@ const state = {
 };
 
 let appStarted = false;
-const AUTH_USER = "admin";
-const AUTH_PASS = "admin1205";
+// NOTA: Cambiar estas credenciales antes de desplegar a producción
+const AUTH_USER = process.env.ADMIN_USER || "admin";
+const AUTH_PASS = process.env.ADMIN_PASS || "admin1205";
 const AUTH_KEY = "prestamos.admin.auth";
 
 // Componente modal reutilizable con campos dinamicos.
